@@ -23,5 +23,17 @@ describe('Translator', function() {
         done();
       });
     });
+    it('should gives the expected array', function(done) {
+      translator.get('Grullo', 'en', function(err, res) {
+        should.not.exist(err);
+        should.exist(res);
+        res.should.be.deep.equal({
+          fr: 'Souris (cheval)',
+          fi: 'Hiirakko',
+        });
+        res.should.not.be.deep.equal({});
+        done();
+      });
+    });
   });
 });
