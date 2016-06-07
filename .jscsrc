@@ -1,0 +1,9 @@
+{
+  "preset": "node-style-guide",
+  "excludeFiles": ["node_modules/**"],
+  "requireTrailingComma": {
+    "ignoreSingleValue": true,
+    "ignoreSingleLine": true
+  },
+  "requireCamelCaseOrUpperCaseIdentifiers": false
+}

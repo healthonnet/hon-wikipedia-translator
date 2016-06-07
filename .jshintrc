@@ -1,0 +1,24 @@
+{
+  "node": true,
+  "browser": true,
+  "bitwise": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "noarg": true,
+  "noempty": true,
+  "nonew": true,
+  "undef": true,
+  "unused": false,
+  "strict": true,
+  "expr":true,
+  "globals": {
+    "describe": true,
+    "it": true,
+    "angular": true,
+    "ui": true
+  },
+  "devel": {
+    "console" : false
+  }
+}
