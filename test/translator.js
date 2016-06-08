@@ -36,4 +36,24 @@ describe('Translator', function() {
       });
     });
   });
+
+  describe('filter', function() {
+    it('should have property', function() {
+      translator.should.have.property('filter');
+    });
+    it('should fail without param', function(done) {
+      translator.filter(null, null, null, function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+    it('should gives the expected array', function(done) {
+      translator.filter('./test/resources/file.txt', 'en', 'fr',
+        function(err, res) {
+        should.not.exist(err);
+        should.exist(res);
+        done();
+      });
+    });
+  });
 });

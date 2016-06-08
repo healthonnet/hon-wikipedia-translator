@@ -1,0 +1,4 @@
+horse: Animals
+cat: Animals
+london: Cities and Humans
+lemur: Animals
