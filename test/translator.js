@@ -52,6 +52,11 @@ describe('Translator', function() {
         function(err, res) {
         should.not.exist(err);
         should.exist(res);
+        res.should.be.deep.equal([
+          'Cheval: Animals',
+          'Moteur de recherche: Computers',
+          'Palagrakx: Mystery',
+        ]);
         done();
       });
     });
