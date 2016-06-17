@@ -33,7 +33,7 @@ A server will be launched at http://localhost:3000
 TODO
 ----
 * [x] web interface
-* [] drag and drop
+* [ ] drag and drop
 
 Developers
 ----------
