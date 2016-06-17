@@ -1,9 +1,30 @@
 extends layout
 
-block content
+mixin single
+  h2 Search translation for a word
   form(action="/", method="get")
     input(type="text", name="q", placeholder="Search a word", value="#{query}")
     input(type="text", name="lang", placeholder="from language", value="#{lang}")
     input(type="text", name="to", placeholder="to language", value="#{to}")
     input(type="submit", value="translate")
+    
+mixin multi
+  h2 Or import a classifier for translation
+  form(action="/", method="post", enctype="multipart/form-data")
+    input(type="file", name="file")
+    input(type="text", name="lang", placeholder="from language", value="#{lang}")
+    input(type="text", name="to", placeholder="to language", value="#{to}")
+    input(type="submit", value="translate")
+    
+block content
+  h1 Health On the Net - Wikipedia translator
+  if result
+    +single
     pre #{result}
+  else if resultF
+    +multi
+    pre #{resultF}
+  else
+    +single
+    +multi
+    

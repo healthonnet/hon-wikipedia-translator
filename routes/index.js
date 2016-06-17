@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var formidable = require('formidable');
 var router = express.Router();
 var translator = require('../utils/translator.js');
 
@@ -38,13 +39,26 @@ router.get('/', function(req, res, next) {
 
 /* POST query */
 router.post('/', function(req, res, next) {
-  if (!req.body) {
-    return next(new Error('No file have been provided.'));
-  }
-  if (!req.params.lang) {
-    return next(new Error('No language have been provided.'));
-  }
-
+  var form = new formidable.IncomingForm();
+  form.parse(req, function(err, fields, files) {
+    var result = {};
+    translator.filter(
+      files.file.path,
+      fields.lang,
+      fields.to,
+      function(err, trans) {
+        if (err) {
+          result = {};
+        } else {
+          result = trans;
+        }
+        res.render('index', {
+          lang: fields.lang,
+          to: fields.to,
+          resultF: JSON.stringify(result, null, 2),
+        });
+      });
+  });
 });
 
 module.exports = router;
