@@ -8,11 +8,31 @@ var translator = require('../utils/translator.js');
 router.get('/', function(req, res, next) {
   if (req.query.q && req.query.lang) {
     translator.get(req.query.q, req.query.lang, function(err, array) {
-      if (err) { return res.json({err: err}); }
-      res.json(array);
+      var result = array;
+      if (err) {
+        result = {};
+      }
+      if (req.query.to) {
+        result = array[req.query.to] || {};
+      }
+      if (req.query.output && req.query.output === 'json') {
+        res.json(result);
+      } else {
+        res.render('index', {
+          query: req.query.q,
+          lang: req.query.lang,
+          to: req.query.to,
+          result: JSON.stringify(result, null, 2),
+        });
+      }
     });
   } else {
-    res.render('index', {params: req.query});
+    res.render('index', {
+      query: '',
+      lang: '',
+      to: '',
+      result: '',
+    });
   }
 });
 

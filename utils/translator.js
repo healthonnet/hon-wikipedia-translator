@@ -10,13 +10,18 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function capitalizeSlug(string) {
+  return capitalizeFirstLetter(slug(string, '_'));
+}
+
 module.exports = {
   get: function(word, i18n, callback) {
     if (!word || !i18n) { return callback(new Error('Not enough params.')); }
 
+    var trans = capitalizeSlug(word);
     var options = {
       host: i18n + '.wikipedia.org',
-      path: '/wiki/' + word,
+      path: '/wiki/' + trans,
     };
 
     https.get(options, function(res) {
@@ -27,6 +32,9 @@ module.exports = {
       });
 
       res.on('end', function() {
+        if (!data) {
+          return callback(new Error('empty file.'));
+        }
         var doc = new Dom().parseFromString(data);
         var nodes = xpath.select(
           '//li[contains(@class, \'interlanguage-link\')]',
@@ -45,6 +53,8 @@ module.exports = {
         }
         callback(null, result);
       });
+    }).on('error', function(err) {
+      callback(err);
     });
   },
 
@@ -63,12 +73,11 @@ module.exports = {
     lr.on('line', function(line) {
       lr.pause();
       var split = line.split(':');
-      var trans = capitalizeFirstLetter(slug(split[0], '_'));
-      module.exports.get(trans, i18nOrigin, function(err, arr) {
+      module.exports.get(split[0], i18nOrigin, function(err, arr) {
         if (arr[i18nDest]) {
           res.push(arr[i18nDest] + ':' + split[1]);
         } else {
-          res.push(trans + ':' + split[1]);
+          res.push(capitalizeSlug(split[0]) + ':' + split[1]);
         }
         lr.resume();
       });

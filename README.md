@@ -28,9 +28,12 @@ Run
 npm start
 ```
 
+A server will be launched at http://localhost:3000
+
 TODO
 ----
-* web interface
+* [x] web interface
+* [] drag and drop
 
 Developers
 ----------

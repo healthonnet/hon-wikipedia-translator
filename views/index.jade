@@ -1,5 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  form(action="/", method="get")
+    input(type="text", name="q", placeholder="Search a word", value="#{query}")
+    input(type="text", name="lang", placeholder="from language", value="#{lang}")
+    input(type="text", name="to", placeholder="to language", value="#{to}")
+    input(type="submit", value="translate")
+    pre #{result}
