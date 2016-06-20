@@ -3,27 +3,43 @@ extends layout
 mixin single
   h2 Search translation for a word
   form(action="/", method="get")
-    input(type="text", name="q", placeholder="Search a word", value="#{query}")
-    input(type="text", name="lang", placeholder="from language", value="#{lang}")
-    input(type="text", name="to", placeholder="to language", value="#{to}")
-    input(type="submit", value="translate")
-    
+    fieldset.form-group
+      .row
+        .col-md-6
+          input(type="text", name="q", placeholder="Search a word", value="#{query}").form-control
+        .col-md-3
+          input(type="text", name="lang", placeholder="from language", value="#{lang}").form-control
+        .col-md-3
+          input(type="text", name="to", placeholder="to language", value="#{to}").form-control
+      .row
+        .col-md-6
+          input(type="submit", value="Translate").btn.btn-info
+
 mixin multi
-  h2 Or import a classifier for translation
+  h2 Import a classifier for translation
   form(action="/", method="post", enctype="multipart/form-data")
-    input(type="file", name="file")
-    input(type="text", name="lang", placeholder="from language", value="#{lang}")
-    input(type="text", name="to", placeholder="to language", value="#{to}")
-    input(type="submit", value="translate")
-    
+    fieldset.form-group
+      .row
+        .col-md-6
+          input(type="file", name="file").form-control-file
+        .col-md-3
+          input(type="text", name="lang", placeholder="from language", value="#{lang}").form-control
+        .col-md-3
+          input(type="text", name="to", placeholder="to language", value="#{to}").form-control
+      .row
+        .col-md-6
+          input(type="submit", value="Translate").btn.btn-info
+
 block content
   h1 Health On the Net - Wikipedia translator
   if result
     +single
     pre #{result}
+    a.btn.btn-primary(href="/") Main Page
   else if resultF
     +multi
     pre #{resultF}
+    a.btn.btn-primary(href="/") Main Page
   else
     +single
     +multi
