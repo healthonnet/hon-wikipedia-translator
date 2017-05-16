@@ -32,15 +32,27 @@ mixin multi
 
 block content
   h1 Health On the Net - Wikipedia translator
-  if result
-    +single
-    pre #{result}
-    a.btn.btn-primary(href="/") Main Page
-  else if resultF
-    +multi
-    pre #{resultF}
-    a.btn.btn-primary(href="/") Main Page
-  else
-    +single
-    +multi
+  h2 Search translation
+  .row
+    form.col-md-4.form-inline
+      .form-group
+        input.form-control(type="text", id="translate", placeholder="horse")
+        select(id="lang", data-live-search="true").selectpicker.form-control
+          option DE
+          option(selected="selected") EN
+          option ES
+          option FR
+          option PO
+  .row
+    if result
+      +single
+      pre #{result}
+      a.btn.btn-primary(href="/") Main Page
+    else if resultF
+      +multi
+      pre #{resultF}
+      a.btn.btn-primary(href="/") Main Page
+    else
+      +single
+      +multi
     

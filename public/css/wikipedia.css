@@ -1,0 +1,18 @@
+body {
+  background-color: rgb(225,225,225);
+}
+h1 {
+  text-align: center;
+  font-weight: 300;
+  margin-bottom: 50px;
+}
+h2 {
+  font-weight: 300;
+}
+.container {
+  background-color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 40px;
+  border-radius: 5px;
+}
